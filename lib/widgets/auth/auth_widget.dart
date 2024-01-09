@@ -16,11 +16,12 @@ class _AuthWidgetState extends State<AuthWidget> {
         // Логотип в апп баре приложения
         title: const Image(
           image: AssetImage("images/logo_pro_force.png"),
-          width: 50,
-          height: 50,
+          width: 75,
+          height: 75,
         ),
         centerTitle: true,
-        elevation: 100,
+        // Шторка
+        // elevation: 100,
       ),
       body: ListView(
         children: [
@@ -95,13 +96,13 @@ class __FormWidgetState extends State<_FormWidget> {
             ),
             filled: true,
             hintText: "+7 (***) *** ** **",
-            fillColor: Colors.grey.shade300,
+            fillColor: Colors.grey.shade200,
           ),
         ),
         const SizedBox(height: 15),
         CheckboxListTile(
           title: const Text(
-              "Я ознакомился и согласен с политикой конфиденциальности"),
+              "Я ознакомился и согласен с    политикой конфиденциальности"),
           value: _isCheckedOne,
           onChanged: (bool? value) {
             setState(() {
@@ -111,7 +112,10 @@ class __FormWidgetState extends State<_FormWidget> {
           activeColor: Colors.blue,
           checkColor: Colors.white,
           subtitle: const Text("Политика конфиденциальности"),
+          // Чекбокс с левой стороны
           controlAffinity: ListTileControlAffinity.leading,
+          // Прибиваем чекбокс к левому краю
+          contentPadding: const EdgeInsets.symmetric(vertical: 0),
         ),
         CheckboxListTile(
           title: const Text(
@@ -126,7 +130,25 @@ class __FormWidgetState extends State<_FormWidget> {
           checkColor: Colors.white,
           subtitle: const Text("Пользовательское соглашение"),
           controlAffinity: ListTileControlAffinity.leading,
-        )
+          contentPadding: const EdgeInsets.symmetric(vertical: 0),
+        ),
+        const SizedBox(height: 15),
+        ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size.fromHeight(50),
+              backgroundColor: Colors.yellow,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: const Text(
+              'Продолжить',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontWeight: FontWeight.normal),
+            )),
       ],
     );
   }

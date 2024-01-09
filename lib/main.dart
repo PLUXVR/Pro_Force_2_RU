@@ -14,11 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Pro Force 2',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            primary: Colors.yellow.shade500,
-            primaryContainer: Colors.black,
-            onPrimary: Colors.white,
-            scrim: Colors.white,
-            seedColor: Colors.yellow),
+            primary: Colors.yellow.shade400, seedColor: Colors.yellow),
         useMaterial3: true,
       ),
       home: AuthWidget(),
