@@ -28,6 +28,43 @@ class _AuthWidgetState extends State<AuthWidget> {
           _HeaderWidget(),
         ],
       ),
+      bottomNavigationBar: BottomAppBar(
+        elevation: 0,
+        child: Align(
+          // alignment: FractionalOffset.bottomCenter,
+          // child: Expanded(
+          child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromRadius(20),
+                backgroundColor: Colors.yellow,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+              ),
+              child: const SizedBox(
+                width: 180,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.phone_sharp,
+                      color: Colors.black,
+                    ),
+                    SizedBox(width: 5),
+                    Text(
+                      'Не могу войти',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.normal),
+                    ),
+                  ],
+                ),
+              )),
+        ),
+        // ),
+      ),
     );
   }
 }
