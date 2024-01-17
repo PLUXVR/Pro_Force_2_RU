@@ -122,71 +122,106 @@ class _FormWidget extends StatefulWidget {
 class __FormWidgetState extends State<_FormWidget> {
   bool? _isCheckedOne = false;
   bool? _isCheckedTwo = false;
+  final _formKey = GlobalKey<FormState>();
+  bool showErrorMessage = false;
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            filled: true,
-            hintText: "+7 (***) *** ** **",
-            fillColor: Colors.grey.shade200,
-          ),
-        ),
-        const SizedBox(height: 15),
-        CheckboxListTile(
-          title: const Text(
-              "Я ознакомился и согласен с    политикой конфиденциальности"),
-          value: _isCheckedOne,
-          onChanged: (bool? value) {
-            setState(() {
-              _isCheckedOne = value;
-            });
-          },
-          activeColor: Colors.blue,
-          checkColor: Colors.white,
-          subtitle: const Text("Политика конфиденциальности"),
-          // Чекбокс с левой стороны
-          controlAffinity: ListTileControlAffinity.leading,
-          // Прибиваем чекбокс к левому краю
-          contentPadding: const EdgeInsets.symmetric(vertical: 0),
-        ),
-        CheckboxListTile(
-          title: const Text(
-              "Я ознакомился и согласен с пользовательским соглашением"),
-          value: _isCheckedTwo,
-          onChanged: (bool? value) {
-            setState(() {
-              _isCheckedTwo = value;
-            });
-          },
-          activeColor: Colors.blue,
-          checkColor: Colors.white,
-          subtitle: const Text("Пользовательское соглашение"),
-          controlAffinity: ListTileControlAffinity.leading,
-          contentPadding: const EdgeInsets.symmetric(vertical: 0),
-        ),
-        const SizedBox(height: 15),
-        ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size.fromHeight(50),
-              backgroundColor: Colors.yellow,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          TextFormField(
+            validator: (value) {
+              return value!.length < 12 ? "Введите номер телефона" : null;
+            },
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
               ),
+              filled: true,
+              hintText: "+7 (***) *** ** **",
+              fillColor: Colors.grey.shade200,
             ),
-            child: const Text(
-              'Продолжить',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 15,
-                  fontWeight: FontWeight.normal),
-            )),
-      ],
+          ),
+          const SizedBox(height: 15),
+          CheckboxListTile(
+            title: const Text(
+                "Я ознакомился и согласен с    политикой конфиденциальности"),
+            value: _isCheckedOne,
+            onChanged: (bool? value) {
+              setState(() {
+                _isCheckedOne = value;
+              });
+            },
+            activeColor: Colors.blue,
+            checkColor: Colors.white,
+            subtitle: const Text("Политика конфиденциальности"),
+            // Чекбокс с левой стороны
+            controlAffinity: ListTileControlAffinity.leading,
+            // Прибиваем чекбокс к левому краю
+            contentPadding: const EdgeInsets.symmetric(vertical: 0),
+          ),
+          CheckboxListTile(
+            title: const Text(
+                "Я ознакомился и согласен с пользовательским соглашением"),
+            value: _isCheckedTwo,
+            onChanged: (bool? value) {
+              setState(() {
+                _isCheckedTwo = value;
+              });
+            },
+            activeColor: Colors.blue,
+            checkColor: Colors.white,
+            subtitle: const Text("Пользовательское соглашение"),
+            controlAffinity: ListTileControlAffinity.leading,
+            contentPadding: const EdgeInsets.symmetric(vertical: 0),
+          ),
+          // const SizedBox(height: 15),
+          showErrorMessage
+              ? Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(80.0)),
+                  child: const Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(
+                      'Примите соглашения',
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
+                )
+              : Container(),
+          const SizedBox(height: 12.0),
+          ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  if (_isCheckedOne != true && _isCheckedTwo != true) {
+                    setState(() => showErrorMessage = true);
+                  } else {
+                    setState(() => showErrorMessage = false);
+                  }
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(50),
+                backgroundColor: Colors.yellow,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              child: const Text(
+                'Продолжить',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal),
+              )),
+        ],
+      ),
     );
   }
 }
