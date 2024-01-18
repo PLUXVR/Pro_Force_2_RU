@@ -199,11 +199,9 @@ class __FormWidgetState extends State<_FormWidget> {
           ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  if (_isCheckedOne != true && _isCheckedTwo != true) {
-                    setState(() => showErrorMessage = true);
-                  } else {
-                    setState(() => showErrorMessage = false);
-                  }
+                  (_isCheckedOne == false || _isCheckedTwo == false)
+                      ? setState(() => showErrorMessage = true)
+                      : setState(() => showErrorMessage = false);
                 }
               },
               style: ElevatedButton.styleFrom(
